@@ -1,10 +1,281 @@
 KPI
+Algoritmo de regresión lineal es una técnica poderosa y fundamental que modela relaciones lineales en los datos para hacer predicciones y obtener insights. 
+Su simplicidad y facilidad de interpretación lo hacen un punto de partida común en muchos proyectos de análisis de datos y machine learning.
+
+
 1. Productividad (Día, Tarde, Noche) por producto.
+-----------------------------------------------------------------
+import pandas as pd
+
+# Cargar datos
+df = pd.read_csv('datasettalento.csv')
+
+# KPI: Productividad por turno y producto
+kpi_productividad = df.groupby(['turno', 'producto_id']).agg({
+    'cantidad_producida': 'sum',
+    'unidades_defectuosas': 'sum',
+    'eficiencia_porcentual': 'mean',
+    'operador_id': 'count'
+}).round(2)
+
+# Calcular tasa de defectos
+kpi_productividad['tasa_defectos'] = (
+    kpi_productividad['unidades_defectuosas'] / 
+    kpi_productividad['cantidad_producida'] * 100
+).round(2)
+
+# Renombrar columnas
+kpi_productividad = kpi_productividad.rename(columns={
+    'cantidad_producida': 'total_producido',
+    'unidades_defectuosas': 'total_defectuosas',
+    'eficiencia_porcentual': 'eficiencia_promedio',
+    'operador_id': 'total_produccion'
+})
+
+print("Productividad por Turno y Producto")
+print("=" * 40)
+print(kpi_productividad)
+
+-----------------------------------------------------------------
+
 2. Productividad por operador.
+-----------------------------------------------------------------
+import pandas as pd
+
+# Cargar datos
+df = pd.read_csv('Dataset_Talento.csv')
+
+# KPI: Productividad por operador
+kpi_productividad_operador = df.groupby('operador_id').agg({
+    'cantidad_producida': 'sum',
+    'unidades_defectuosas': 'sum',
+    'eficiencia_porcentual': 'mean',
+    'operador_id': 'count'
+}).round(2)
+
+# Calcular tasa de defectos
+kpi_productividad_operador['tasa_defectos'] = (
+    kpi_productividad_operador['unidades_defectuosas'] / 
+    kpi_productividad_operador['cantidad_producida'] * 100
+).round(2)
+
+# Renombrar columnas
+kpi_productividad_operador = kpi_productividad_operador.rename(columns={
+    'cantidad_producida': 'total_producido',
+    'unidades_defectuosas': 'total_defectuosas',
+    'eficiencia_porcentual': 'eficiencia_promedio',
+    'operador_id': 'total_registros'
+})
+
+# Ordenar por productividad total (descendente)
+kpi_productividad_operador = kpi_productividad_operador.sort_values('total_producido', ascending=False)
+
+print("Productividad por Operador")
+print("=" * 40)
+print(kpi_productividad_operador)
+-----------------------------------------------------------------
+
 3. Fallas de maquina por turno.
+-----------------------------------------------------------------
+import pandas as pd
+
+# Cargar datos
+df = pd.read_csv('Dataset_Talento.csv')
+
+# KPI: Fallas de máquina por turno
+kpi_fallas_turno = df[df['fallo_detectado'] == 'Sí'].groupby('turno').agg({
+    'maquina_id': 'count',
+    'tipo_fallo': 'value_counts'
+}).round(2)
+
+# Renombrar columnas
+kpi_fallas_turno = kpi_fallas_turno.rename(columns={
+    'maquina_id': 'total_fallas'
+})
+
+print("Fallas de Máquina por Turno")
+print("=" * 40)
+print(kpi_fallas_turno)
+-----------------------------------------------------------------
 4. Fallas de maquina por producto.
+-----------------------------------------------------------------
+import pandas as pd
+
+# Cargar datos
+df = pd.read_csv('Dataset_Talento.csv')
+
+# KPI: Fallas de máquina por producto
+kpi_fallas_producto = df[df['fallo_detectado'] == 'Sí'].groupby('producto_id').agg({
+    'maquina_id': 'count',
+    'tipo_fallo': 'value_counts'
+}).round(2)
+
+# Renombrar columnas
+kpi_fallas_producto = kpi_fallas_producto.rename(columns={
+    'maquina_id': 'total_fallas'
+})
+
+print("Fallas de Máquina por Producto")
+print("=" * 40)
+print(kpi_fallas_producto)
+-----------------------------------------------------------------
 5. Unidades defectuosas por producto.
+-----------------------------------------------------------------
+import pandas as pd
+
+# Cargar datos
+df = pd.read_csv('Dataset_Talento.csv')
+
+# KPI: Unidades defectuosas por producto
+kpi_defectuosas_producto = df.groupby('producto_id').agg({
+    'unidades_defectuosas': 'sum',
+    'cantidad_producida': 'sum',
+    'producto_id': 'count'
+}).round(2)
+
+# Calcular tasa de defectos
+kpi_defectuosas_producto['tasa_defectos'] = (
+    kpi_defectuosas_producto['unidades_defectuosas'] / 
+    kpi_defectuosas_producto['cantidad_producida'] * 100
+).round(2)
+
+# Renombrar columnas
+kpi_defectuosas_producto = kpi_defectuosas_producto.rename(columns={
+    'unidades_defectuosas': 'total_defectuosas',
+    'cantidad_producida': 'total_producido',
+    'producto_id': 'total_registros'
+})
+
+# Ordenar por total de defectuosas (descendente)
+kpi_defectuosas_producto = kpi_defectuosas_producto.sort_values('total_defectuosas', ascending=False)
+
+print("Unidades Defectuosas por Producto")
+print("=" * 40)
+print(kpi_defectuosas_producto)
+-----------------------------------------------------------------
 6. Unidades defectuosas por maquina.
+-----------------------------------------------------------------
+import pandas as pd
+
+# Cargar datos
+df = pd.read_csv('Dataset_Talento.csv')
+
+# KPI: Unidades defectuosas por máquina
+kpi_defectuosas_maquina = df.groupby('maquina_id').agg({
+    'unidades_defectuosas': 'sum',
+    'cantidad_producida': 'sum',
+    'maquina_id': 'count'
+}).round(2)
+
+# Calcular tasa de defectos
+kpi_defectuosas_maquina['tasa_defectos'] = (
+    kpi_defectuosas_maquina['unidades_defectuosas'] / 
+    kpi_defectuosas_maquina['cantidad_producida'] * 100
+).round(2)
+
+# Renombrar columnas
+kpi_defectuosas_maquina = kpi_defectuosas_maquina.rename(columns={
+    'unidades_defectuosas': 'total_defectuosas',
+    'cantidad_producida': 'total_producido',
+    'maquina_id': 'total_registros'
+})
+
+# Ordenar por total de defectuosas (descendente)
+kpi_defectuosas_maquina = kpi_defectuosas_maquina.sort_values('total_defectuosas', ascending=False)
+
+print("Unidades Defectuosas por Máquina")
+print("=" * 40)
+print(kpi_defectuosas_maquina)
+
+-----------------------------------------------------------------
 7. Unidades defectuosas por operador
+-----------------------------------------------------------------
+import pandas as pd
+
+# Cargar datos
+df = pd.read_csv('Dataset_Talento.csv')
+
+# KPI: Unidades defectuosas por operador
+kpi_defectuosas_operador = df.groupby('operador_id').agg({
+    'unidades_defectuosas': 'sum',
+    'cantidad_producida': 'sum',
+    'operador_id': 'count'
+}).round(2)
+
+# Calcular tasa de defectos
+kpi_defectuosas_operador['tasa_defectos'] = (
+    kpi_defectuosas_operador['unidades_defectuosas'] / 
+    kpi_defectuosas_operador['cantidad_producida'] * 100
+).round(2)
+
+# Renombrar columnas
+kpi_defectuosas_operador = kpi_defectuosas_operador.rename(columns={
+    'unidades_defectuosas': 'total_defectuosas',
+    'cantidad_producida': 'total_producido',
+    'operador_id': 'total_registros'
+})
+
+# Ordenar por total de defectuosas (descendente)
+kpi_defectuosas_operador = kpi_defectuosas_operador.sort_values('total_defectuosas', ascending=False)
+
+print("Unidades Defectuosas por Operador")
+print("=" * 40)
+print(kpi_defectuosas_operador)
+-----------------------------------------------------------------
 8. Eficiencia por producto.
+-----------------------------------------------------------------
+import pandas as pd
+
+# Cargar datos
+df = pd.read_csv('Dataset_Talento.csv')
+
+# KPI: Eficiencia por producto
+kpi_eficiencia_producto = df.groupby('producto_id').agg({
+    'eficiencia_porcentual': 'mean',
+    'cantidad_producida': 'sum',
+    'producto_id': 'count'
+}).round(2)
+
+# Renombrar columnas
+kpi_eficiencia_producto = kpi_eficiencia_producto.rename(columns={
+    'eficiencia_porcentual': 'eficiencia_promedio',
+    'cantidad_producida': 'total_producido',
+    'producto_id': 'total_registros'
+})
+
+# Ordenar por eficiencia promedio (descendente)
+kpi_eficiencia_producto = kpi_eficiencia_producto.sort_values('eficiencia_promedio', ascending=False)
+
+print("Eficiencia por Producto")
+print("=" * 40)
+print(kpi_eficiencia_producto)
+-----------------------------------------------------------------
 9. Eficiencia por operador.
+-----------------------------------------------------------------
+import pandas as pd
+
+# Cargar datos
+df = pd.read_csv('Dataset_Talento.csv')
+
+# KPI: Eficiencia por operador
+kpi_eficiencia_operador = df.groupby('operador_id').agg({
+    'eficiencia_porcentual': 'mean',
+    'cantidad_producida': 'sum',
+    'operador_id': 'count'
+}).round(2)
+
+# Renombrar columnas
+kpi_eficiencia_operador = kpi_eficiencia_operador.rename(columns={
+    'eficiencia_porcentual': 'eficiencia_promedio',
+    'cantidad_producida': 'total_producido',
+    'operador_id': 'total_registros'
+})
+
+# Ordenar por eficiencia promedio (descendente)
+kpi_eficiencia_operador = kpi_eficiencia_operador.sort_values('eficiencia_promedio', ascending=False)
+
+print("Eficiencia por Operador")
+print("=" * 40)
+print(kpi_eficiencia_operador)
+-----------------------------------------------------------------
+
