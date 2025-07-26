@@ -190,6 +190,37 @@ print(kpi_defectuosas_maquina)
 -----------------------------------------------------------------
 7. Unidades defectuosas por operador
 -----------------------------------------------------------------
+import pandas as pd
+
+# Cargar datos
+df = pd.read_csv('Dataset_Talento.csv')
+
+# KPI: Unidades defectuosas por operador
+kpi_defectuosas_operador = df.groupby('operador_id').agg({
+    'unidades_defectuosas': 'sum',
+    'cantidad_producida': 'sum',
+    'operador_id': 'count'
+}).round(2)
+
+# Calcular tasa de defectos
+kpi_defectuosas_operador['tasa_defectos'] = (
+    kpi_defectuosas_operador['unidades_defectuosas'] / 
+    kpi_defectuosas_operador['cantidad_producida'] * 100
+).round(2)
+
+# Renombrar columnas
+kpi_defectuosas_operador = kpi_defectuosas_operador.rename(columns={
+    'unidades_defectuosas': 'total_defectuosas',
+    'cantidad_producida': 'total_producido',
+    'operador_id': 'total_registros'
+})
+
+# Ordenar por total de defectuosas (descendente)
+kpi_defectuosas_operador = kpi_defectuosas_operador.sort_values('total_defectuosas', ascending=False)
+
+print("Unidades Defectuosas por Operador")
+print("=" * 40)
+print(kpi_defectuosas_operador)
 -----------------------------------------------------------------
 8. Eficiencia por producto.
 -----------------------------------------------------------------
