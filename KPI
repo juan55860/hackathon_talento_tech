@@ -1,5 +1,39 @@
 KPI
 1. Productividad (Día, Tarde, Noche) por producto.
+-----------------------------------------------------------------
+import pandas as pd
+
+# Cargar datos
+df = pd.read_csv('datasettalento.csv')
+
+# KPI: Productividad por turno y producto
+kpi_productividad = df.groupby(['turno', 'producto_id']).agg({
+    'cantidad_producida': 'sum',
+    'unidades_defectuosas': 'sum',
+    'eficiencia_porcentual': 'mean',
+    'operador_id': 'count'
+}).round(2)
+
+# Calcular tasa de defectos
+kpi_productividad['tasa_defectos'] = (
+    kpi_productividad['unidades_defectuosas'] / 
+    kpi_productividad['cantidad_producida'] * 100
+).round(2)
+
+# Renombrar columnas
+kpi_productividad = kpi_productividad.rename(columns={
+    'cantidad_producida': 'total_producido',
+    'unidades_defectuosas': 'total_defectuosas',
+    'eficiencia_porcentual': 'eficiencia_promedio',
+    'operador_id': 'total_produccion'
+})
+
+print("Productividad por Turno y Producto")
+print("=" * 40)
+print(kpi_productividad)
+
+-----------------------------------------------------------------
+
 2. Productividad por operador.
 3. Fallas de maquina por turno.
 4. Fallas de maquina por producto.
@@ -8,3 +42,5 @@ KPI
 7. Unidades defectuosas por operador
 8. Eficiencia por producto.
 9. Eficiencia por operador.
+
+
