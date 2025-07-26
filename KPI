@@ -224,8 +224,58 @@ print(kpi_defectuosas_operador)
 -----------------------------------------------------------------
 8. Eficiencia por producto.
 -----------------------------------------------------------------
+import pandas as pd
+
+# Cargar datos
+df = pd.read_csv('Dataset_Talento.csv')
+
+# KPI: Eficiencia por producto
+kpi_eficiencia_producto = df.groupby('producto_id').agg({
+    'eficiencia_porcentual': 'mean',
+    'cantidad_producida': 'sum',
+    'producto_id': 'count'
+}).round(2)
+
+# Renombrar columnas
+kpi_eficiencia_producto = kpi_eficiencia_producto.rename(columns={
+    'eficiencia_porcentual': 'eficiencia_promedio',
+    'cantidad_producida': 'total_producido',
+    'producto_id': 'total_registros'
+})
+
+# Ordenar por eficiencia promedio (descendente)
+kpi_eficiencia_producto = kpi_eficiencia_producto.sort_values('eficiencia_promedio', ascending=False)
+
+print("Eficiencia por Producto")
+print("=" * 40)
+print(kpi_eficiencia_producto)
 -----------------------------------------------------------------
 9. Eficiencia por operador.
 -----------------------------------------------------------------
+import pandas as pd
+
+# Cargar datos
+df = pd.read_csv('Dataset_Talento.csv')
+
+# KPI: Eficiencia por operador
+kpi_eficiencia_operador = df.groupby('operador_id').agg({
+    'eficiencia_porcentual': 'mean',
+    'cantidad_producida': 'sum',
+    'operador_id': 'count'
+}).round(2)
+
+# Renombrar columnas
+kpi_eficiencia_operador = kpi_eficiencia_operador.rename(columns={
+    'eficiencia_porcentual': 'eficiencia_promedio',
+    'cantidad_producida': 'total_producido',
+    'operador_id': 'total_registros'
+})
+
+# Ordenar por eficiencia promedio (descendente)
+kpi_eficiencia_operador = kpi_eficiencia_operador.sort_values('eficiencia_promedio', ascending=False)
+
+print("Eficiencia por Operador")
+print("=" * 40)
+print(kpi_eficiencia_operador)
 -----------------------------------------------------------------
 
