@@ -94,10 +94,40 @@ print("=" * 40)
 print(kpi_fallas_turno)
 -----------------------------------------------------------------
 4. Fallas de maquina por producto.
+-----------------------------------------------------------------
+import pandas as pd
+
+# Cargar datos
+df = pd.read_csv('Dataset_Talento.csv')
+
+# KPI: Fallas de máquina por producto
+kpi_fallas_producto = df[df['fallo_detectado'] == 'Sí'].groupby('producto_id').agg({
+    'maquina_id': 'count',
+    'tipo_fallo': 'value_counts'
+}).round(2)
+
+# Renombrar columnas
+kpi_fallas_producto = kpi_fallas_producto.rename(columns={
+    'maquina_id': 'total_fallas'
+})
+
+print("Fallas de Máquina por Producto")
+print("=" * 40)
+print(kpi_fallas_producto)
+-----------------------------------------------------------------
 5. Unidades defectuosas por producto.
+-----------------------------------------------------------------
+-----------------------------------------------------------------
 6. Unidades defectuosas por maquina.
+-----------------------------------------------------------------
+-----------------------------------------------------------------
 7. Unidades defectuosas por operador
+-----------------------------------------------------------------
+-----------------------------------------------------------------
 8. Eficiencia por producto.
+-----------------------------------------------------------------
+-----------------------------------------------------------------
 9. Eficiencia por operador.
+-----------------------------------------------------------------
 -----------------------------------------------------------------
 
