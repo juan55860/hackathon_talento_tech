@@ -34,7 +34,7 @@ def run_kpis(df):
         print("=" * 40)
         print(resulset_kpi_falla_de_maquina_por_producto)
 
-        # 5.calculo KPI 
+        # 5.calculo KPI unidades defectuosas por producto
         resulset_kpi_unidades_defectuosas_por_producto = kpi_unidades_defectuosas_por_producto(df)
         print("Unidades Defectuosas por Producto")
         print("=" * 40)
