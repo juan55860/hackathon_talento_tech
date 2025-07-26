@@ -3,7 +3,7 @@ Algoritmo de regresión lineal es una técnica poderosa y fundamental que modela
 Su simplicidad y facilidad de interpretación lo hacen un punto de partida común en muchos proyectos de análisis de datos y machine learning.
 
 
-1. Productividad (Día, Tarde, Noche) por producto.
+# 1. Productividad (Día, Tarde, Noche) por producto.
 -----------------------------------------------------------------
 import pandas as pd
 
@@ -38,7 +38,7 @@ print(kpi_productividad)
 
 -----------------------------------------------------------------
 
-2. Productividad por operador.
+# 2. Productividad por operador.
 -----------------------------------------------------------------
 import pandas as pd
 
@@ -75,7 +75,7 @@ print("=" * 40)
 print(kpi_productividad_operador)
 -----------------------------------------------------------------
 
-3. Fallas de maquina por turno.
+# 3. Fallas de maquina por turno.
 -----------------------------------------------------------------
 import pandas as pd
 
@@ -97,7 +97,7 @@ print("Fallas de Máquina por Turno")
 print("=" * 40)
 print(kpi_fallas_turno)
 -----------------------------------------------------------------
-4. Fallas de maquina por producto.
+# 4. Fallas de maquina por producto.
 -----------------------------------------------------------------
 import pandas as pd
 
@@ -119,7 +119,7 @@ print("Fallas de Máquina por Producto")
 print("=" * 40)
 print(kpi_fallas_producto)
 -----------------------------------------------------------------
-5. Unidades defectuosas por producto.
+# 5. Unidades defectuosas por producto.
 -----------------------------------------------------------------
 import pandas as pd
 
@@ -153,7 +153,7 @@ print("Unidades Defectuosas por Producto")
 print("=" * 40)
 print(kpi_defectuosas_producto)
 -----------------------------------------------------------------
-6. Unidades defectuosas por maquina.
+# 6. Unidades defectuosas por maquina.
 -----------------------------------------------------------------
 import pandas as pd
 
@@ -188,7 +188,7 @@ print("=" * 40)
 print(kpi_defectuosas_maquina)
 
 -----------------------------------------------------------------
-7. Unidades defectuosas por operador
+# 7. Unidades defectuosas por operador
 -----------------------------------------------------------------
 import pandas as pd
 
@@ -222,7 +222,7 @@ print("Unidades Defectuosas por Operador")
 print("=" * 40)
 print(kpi_defectuosas_operador)
 -----------------------------------------------------------------
-8. Eficiencia por producto.
+# 8. Eficiencia por producto.
 -----------------------------------------------------------------
 import pandas as pd
 
@@ -250,7 +250,7 @@ print("Eficiencia por Producto")
 print("=" * 40)
 print(kpi_eficiencia_producto)
 -----------------------------------------------------------------
-9. Eficiencia por operador.
+# 9. Eficiencia por operador.
 -----------------------------------------------------------------
 import pandas as pd
 
@@ -277,5 +277,3 @@ kpi_eficiencia_operador = kpi_eficiencia_operador.sort_values('eficiencia_promed
 print("Eficiencia por Operador")
 print("=" * 40)
 print(kpi_eficiencia_operador)
------------------------------------------------------------------
-
