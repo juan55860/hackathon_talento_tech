@@ -5,12 +5,12 @@ Authors: Juan David Arias - Juan Camilo Varela
 
 # Datos
 {
-    "timestamp": YYYY-MM-DD hh:mm:ss,
-    "turno" : "Mañana", "Tarde","Noche",
-    "operador_id": "OP_",
-    "maquina_id" : "M_1" to "M_10", 
-    "producto_id": "P_",
-    "temperatura": decimal ?
+    "timestamp": YYYY-MM-DD hh:mm:ss required,
+    "turno" : "Mañana", "Tarde","Noche" required,
+    "operador_id": "OP_" required
+    "maquina_id" : "M_1" to "M_10", required
+    "producto_id": "P_", required
+    "temperatura": decimal ? -> 5820
     "vibración": decimal ?
     "humedad": decimal ?
     "tiempo_ciclo": decimal ?
