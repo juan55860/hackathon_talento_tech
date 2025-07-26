@@ -211,4 +211,4 @@ python-dotenv==1.1.1
 **Juan Camilo Varela** - [@juan55860](https://github.com/juan55860)  
 📧 juan55860@gmail.com
 
-**Proyecto:** [https://github.com/juankers/hackaton-talento-tech](https://github.com/juankers/hackaton-talento-tech)
+**Proyecto:** [https://github.com/juan55860/hackathon_talento_tech](https://github.com/juan55860/hackathon_talento_tech)
