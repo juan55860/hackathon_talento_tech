@@ -1,19 +1,21 @@
-# 🏭 Analizados de KPIS 
-## Análisis de Datos Industriales - Proyecto Talento Tech
+# 🏭 Análisis de KPIs Industriales
+## Proyecto Talento Tech - Hackathon
 
 ## 📋 Información del Proyecto
 
 **Grupo:** Juankers  
 **Autores:** Juan David Arias - Juan Camilo Varela  
-**Descripción:** Sistema de análisis de datos industriales con KPIs, regresión lineal y almacenamiento en la nube.
+**Descripción:** Sistema de análisis de datos industriales con KPIs automatizados, normalización de datos y almacenamiento en la nube.
 
 ---
 
 ## 🚀 Características Principales
 
 - 📊 **Análisis Exploratorio de Datos (EDA)** completo
-- 🎯 **KPIs Industriales** automatizados
+- 🔄 **Normalización de Datos** Normalización de Datos de forma automática
+- 🎯 **KPIs Industriales** KPIS automatizados
 - ☁️ **Almacenamiento en AWS S3** con URLs públicas
+- 📈 **Visualización en AWS QuickSight** con dashboards interactivos
 - 🔧 **Modular y Escalable** - fácil agregar nuevos análisis
 - 🔒 **Configuración Segura** con variables de entorno
 
@@ -28,6 +30,8 @@ hackaton/
 ├── requirements.txt                 # Dependencias
 ├── .env                            # Variables de entorno
 ├── .gitignore                      # Archivos ignorados
+├── Graficos.pdf                    # Ejemplo de visualizaciones
+├── KPI metrics.md                  # Documentación de métricas
 ├── src/                            # Módulos del proyecto
 │   ├── read_data.py               # Carga de datos
 │   ├── clean_data.py              # Limpieza y normalización
@@ -80,11 +84,13 @@ Crea un archivo `.env` en la raíz del proyecto:
 
 ```bash
 # AWS S3 Credentials
-AWS_ACCESS_KEY=""
-AWS_SECRET_KEY=""
-AWS_REGION=""
+AWS_ACCESS_KEY="tu_access_key_aqui"
+AWS_SECRET_KEY="tu_secret_key_aqui"
+AWS_REGION="us-east-1"
+
 # S3 Bucket Configuration
 S3_BUCKET_NAME=hackathon-juankers
+
 # Data Source
 DATA_FILE_PATH=sources/Dataset_Talento.csv
 ```
@@ -94,9 +100,12 @@ DATA_FILE_PATH=sources/Dataset_Talento.csv
 ```bash
 pip3 install -r requirements.txt
 ```
+
 ---
 
-## ⚙️ Uso
+## 🚀 Uso
+
+### Ejecución Completa
 
 ```bash
 python3 main.py
@@ -104,9 +113,15 @@ python3 main.py
 
 Esto ejecutará:
 1. **EDA** - Análisis exploratorio de datos
-2. **Normalizacion de datos** - Normalización de datos
-2. **KPIs** - Cálculo de indicadores clave
+2. **Normalización** - Normalización de datos numéricos
+3. **KPIs** - Cálculo de indicadores clave
 4. **Subida a S3** - Almacenamiento en la nube
+
+### Ejecución Individual de KPIs
+
+```bash
+python3 kpis.py
+```
 
 ---
 
@@ -143,10 +158,18 @@ Los resultados se almacenan automáticamente en S3 con URLs públicas:
 - **Sin timestamp** - siempre el archivo más reciente
 - **Estructura organizada** en carpetas por tipo de KPI
 
+---
 
-## Visuzalizacion de datos en Quicksight
+## 📊 Visualización de Datos en AWS QuickSight
 
-Los gráficos podran verse en QuickSight de AWS, nota se adjunta un pdf de como se verian los datos en caso de que no se cuente temporalmente con el acceso
+Los datos se pueden visualizar en AWS QuickSight lo cual nos ayudó a crear un dashboard interactivo:
+
+- **Gráficos dinámicos** con filtros en tiempo real
+- **KPIs visuales** con indicadores de rendimiento
+- **Análisis de tendencias** temporales
+- **Comparativas** entre turnos, operadores y productos
+
+> **Nota:** Se incluye un archivo `Graficos.pdf` con ejemplos de cómo se verían las visualizaciones en QuickSight.
 
 ---
 
@@ -161,14 +184,31 @@ Los gráficos podran verse en QuickSight de AWS, nota se adjunta un pdf de como 
 ### Infraestructura
 - ✅ Configuración segura con variables de entorno
 - ✅ Subida automática a AWS S3
+- ✅ Manejo de errores robusto
 - ✅ Código modular y reutilizable
-- ✅ Información en el dashboard de Quicksight
+- ✅ Integración con AWS QuickSight
+
+---
+
+## 📦 Dependencias
+
+```
+numpy==2.0.2
+pandas==2.3.1
+scikit-learn==1.6.1
+matplotlib==3.9.4
+boto3==1.39.14
+python-dotenv==1.1.1
+```
 
 ---
 
 ## 📞 Contáctanos
 
-**Juan David Arias** - [@juanarias14](https://github.com/juanarias14)  ari_juan14@hotmail.com
-**Juan Camilo Varela** - [@juan55860](https://github.com/juan55860) juan55860@gmail.com
+**Juan David Arias** - [@juanarias14](https://github.com/juanarias14)  
+📧 ari_juan14@hotmail.com
 
-Proyecto Link: [https://github.com/juankers/hackaton-talento-tech](https://github.com/juankers/hackaton-talento-tech)
+**Juan Camilo Varela** - [@juan55860](https://github.com/juan55860)  
+📧 juan55860@gmail.com
+
+**Proyecto:** [https://github.com/juankers/hackaton-talento-tech](https://github.com/juankers/hackaton-talento-tech)
