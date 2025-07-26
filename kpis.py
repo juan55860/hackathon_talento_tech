@@ -1,19 +1,14 @@
-import pandas as pd
-import numpy as np
-from src.read_data import load_data
-from src.clean_data import normalize_data
-from src.linear_regression import linear_regression
 from src.kpi_productividad_operador import kpi_productividad_por_operador
 from src.kpi_productividad_turno_producto import kpi_productividad_turno_y_producto
 from src.kpi_falla_de_maquina_por_turno import kpi_falla_de_maquina_por_turno
 from src.kpi_falla_de_maquina_por_producto import kpi_falla_de_maquina_por_producto
 
-
-def main():
-    fileRoute = 'sources/Dataset_Talento.csv'
-    df = load_data(fileRoute)
-    
-    if df is not None:
+def run_kpis(df):
+    """
+    Ejecuta todos los KPIs con el DataFrame proporcionado.
+    df: DataFrame con los datos de producción
+    """
+    if df is not None and len(df) > 0:
         # Calculo KPIs de productividad por turno y producto
         resulset_kpi_productividad_turno_y_producto = kpi_productividad_turno_y_producto(df)
         print("Productividad por Turno y Producto")
@@ -38,7 +33,4 @@ def main():
         print("=" * 40)
         print(resulset_kpi_falla_de_maquina_por_producto)
     else:
-        print("No se pudo cargar el archivo para calcular los KPIs.")
-
-if __name__ == "__main__":
-    main()
+        print("No se pudo calcular los KPIs: DataFrame vacío o nulo.")

@@ -1,10 +1,17 @@
 import pandas as pd
 import numpy as np
+import os
+from dotenv import load_dotenv
 from src.read_data import load_data
 from src.clean_data import normalize_data
 from src.linear_regression import linear_regression
+from kpis import run_kpis
 
-fileRoute = 'sources/Dataset_Talento.csv'
+# Cargar variables de entorno
+load_dotenv()
+
+# Obtener ruta del archivo desde variables de entorno
+fileRoute = os.getenv('DATA_FILE_PATH', 'sources/Dataset_Talento.csv')
 
 df = load_data(fileRoute)
 
@@ -42,14 +49,17 @@ if df is not None:
     print(f'\n📊Filas duplicadas eliminadas: {filas_antes - filas_despues}')
 
     # Regresión lineal
-    print('\n📈 Regresión lineal:')
-    independent_col = 'temperatura'
-    dependent_col = 'eficiencia_porcentual'
-    df_clean = df[[independent_col, dependent_col]].dropna()
-    if len(df_clean) > 0:
-        modelo = linear_regression(df_clean, independent_col, dependent_col)
-    else:
-        print("No hay suficientes datos para realizar la regresión lineal.")
+    # print('\n📈 Regresión lineal:')
+    # Usar temperatura como variable independiente y eficiencia_porcentual como dependiente
+    #df_clean = df[['temperatura', 'eficiencia_porcentual']].dropna()
+    #if len(df_clean) > 0:
+    #    modelo = linear_regression(df_clean, 'temperatura', 'eficiencia_porcentual')
+    #else:
+    #    print("No hay suficientes datos para realizar la regresión lineal.")
+
+    # Ejecutar KPIs
+    print('\n📊 Ejecutando KPIs...')
+    run_kpis(df)
 
 else:
     print('No se pudo cargar el archivo, revisa la ruta o el formato.')

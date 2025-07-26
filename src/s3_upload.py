@@ -1,19 +1,24 @@
 import boto3
 import os
 from botocore.exceptions import NoCredentialsError, ClientError
+from dotenv import load_dotenv
 
-# Configuración de credenciales AWS
-AWS_ACCESS_KEY = 'AKIA23JEU4SEPPW2HT5V'
-AWS_SECRET_KEY = '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'
-AWS_REGION = 'us-east-1'  # Cambia a tu región
+# Cargar variables de entorno desde .env
+load_dotenv()
 
-def upload_to_s3(file_path, bucket_name, s3_key=None, make_public=True):
+# Configuración de credenciales AWS desde variables de entorno
+AWS_ACCESS_KEY = os.getenv('AWS_ACCESS_KEY')
+AWS_SECRET_KEY = os.getenv('AWS_SECRET_KEY')
+AWS_REGION = os.getenv('AWS_REGION', 'us-east-1')
+S3_BUCKET_NAME = os.getenv('S3_BUCKET_NAME', 'hackathon-juankers')
+
+def upload_to_s3(file_path, bucket_name=None, s3_key=None, make_public=True):
     """
     Sube un archivo a AWS S3.
     
     Args:
         file_path (str): Ruta local del archivo a subir
-        bucket_name (str): Nombre del bucket de S3
+        bucket_name (str): Nombre del bucket de S3 (opcional, usa el valor por defecto)
         s3_key (str): Clave/nombre del archivo en S3 (opcional, usa el nombre del archivo si no se especifica)
         make_public (bool): Si True, intenta hacer el archivo público (depende de la configuración del bucket)
     
@@ -21,6 +26,16 @@ def upload_to_s3(file_path, bucket_name, s3_key=None, make_public=True):
         bool: True si se subió exitosamente, False en caso contrario
     """
     try:
+        # Usar bucket por defecto si no se especifica
+        if bucket_name is None:
+            bucket_name = S3_BUCKET_NAME
+            
+        # Verificar que las credenciales estén configuradas
+        if not AWS_ACCESS_KEY or not AWS_SECRET_KEY:
+            print("❌ Error: Credenciales de AWS no configuradas en el archivo .env")
+            print("Verifica que AWS_ACCESS_KEY y AWS_SECRET_KEY estén definidos")
+            return False
+        
         # Crear sesión con credenciales específicas
         session = boto3.Session(
             aws_access_key_id=AWS_ACCESS_KEY,
@@ -51,11 +66,13 @@ def upload_to_s3(file_path, bucket_name, s3_key=None, make_public=True):
         url = f"https://{bucket_name}.s3.amazonaws.com/{s3_key}"
         print(f"✅ Archivo subido exitosamente a s3://{bucket_name}/{s3_key}")
         print(f"🌐 URL: {url}")
+        print("ℹ️  Nota: Si el bucket no es público, la URL puede no ser accesible")
+        
         return True
         
     except NoCredentialsError:
         print("❌ Error: No se encontraron credenciales de AWS")
-        print("Verifica que AWS_ACCESS_KEY y AWS_SECRET_KEY estén configurados correctamente")
+        print("Verifica que AWS_ACCESS_KEY y AWS_SECRET_KEY estén configurados correctamente en .env")
         return False
         
     except ClientError as e:
@@ -70,13 +87,13 @@ def upload_to_s3(file_path, bucket_name, s3_key=None, make_public=True):
         print(f"❌ Error inesperado: {e}")
         return False
 
-def upload_kpi_results(file_path, bucket_name="hackathon-juankers"):
+def upload_kpi_results(file_path, bucket_name=None):
     """
     Función específica para subir resultados de KPIs a S3.
     
     Args:
         file_path (str): Ruta del archivo CSV de KPIs
-        bucket_name (str): Nombre del bucket (por defecto: hackathon-juankers)
+        bucket_name (str): Nombre del bucket (opcional, usa el valor por defecto)
     
     Returns:
         bool: True si se subió exitosamente
