@@ -1,4 +1,8 @@
 KPI
+Algoritmo de regresión lineal es una técnica poderosa y fundamental que modela relaciones lineales en los datos para hacer predicciones y obtener insights. 
+Su simplicidad y facilidad de interpretación lo hacen un punto de partida común en muchos proyectos de análisis de datos y machine learning.
+
+
 1. Productividad (Día, Tarde, Noche) por producto.
 -----------------------------------------------------------------
 import pandas as pd
@@ -151,6 +155,38 @@ print(kpi_defectuosas_producto)
 -----------------------------------------------------------------
 6. Unidades defectuosas por maquina.
 -----------------------------------------------------------------
+import pandas as pd
+
+# Cargar datos
+df = pd.read_csv('Dataset_Talento.csv')
+
+# KPI: Unidades defectuosas por máquina
+kpi_defectuosas_maquina = df.groupby('maquina_id').agg({
+    'unidades_defectuosas': 'sum',
+    'cantidad_producida': 'sum',
+    'maquina_id': 'count'
+}).round(2)
+
+# Calcular tasa de defectos
+kpi_defectuosas_maquina['tasa_defectos'] = (
+    kpi_defectuosas_maquina['unidades_defectuosas'] / 
+    kpi_defectuosas_maquina['cantidad_producida'] * 100
+).round(2)
+
+# Renombrar columnas
+kpi_defectuosas_maquina = kpi_defectuosas_maquina.rename(columns={
+    'unidades_defectuosas': 'total_defectuosas',
+    'cantidad_producida': 'total_producido',
+    'maquina_id': 'total_registros'
+})
+
+# Ordenar por total de defectuosas (descendente)
+kpi_defectuosas_maquina = kpi_defectuosas_maquina.sort_values('total_defectuosas', ascending=False)
+
+print("Unidades Defectuosas por Máquina")
+print("=" * 40)
+print(kpi_defectuosas_maquina)
+
 -----------------------------------------------------------------
 7. Unidades defectuosas por operador
 -----------------------------------------------------------------
