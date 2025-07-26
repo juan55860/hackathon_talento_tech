@@ -6,6 +6,8 @@ from src.linear_regression import linear_regression
 from src.kpi_productividad_operador import kpi_productividad_por_operador
 from src.kpi_productividad_turno_producto import kpi_productividad_turno_y_producto
 from src.kpi_falla_de_maquina_por_turno import kpi_falla_de_maquina_por_turno
+from src.kpi_falla_de_maquina_por_producto import kpi_falla_de_maquina_por_producto
+
 
 def main():
     fileRoute = 'sources/Dataset_Talento.csv'
@@ -29,6 +31,12 @@ def main():
         print("Fallas de Máquina por Turno")
         print("=" * 40)
         print(resulset_kpi_falla_de_maquina_por_turno)
+
+        # calculo KPIs de falla de máquina por producto
+        resulset_kpi_falla_de_maquina_por_producto = kpi_falla_de_maquina_por_producto(df)
+        print("Fallas de Máquina por Producto")
+        print("=" * 40)
+        print(resulset_kpi_falla_de_maquina_por_producto)
     else:
         print("No se pudo cargar el archivo para calcular los KPIs.")
 

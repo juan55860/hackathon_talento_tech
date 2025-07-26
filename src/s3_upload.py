@@ -51,8 +51,6 @@ def upload_to_s3(file_path, bucket_name, s3_key=None, make_public=True):
         url = f"https://{bucket_name}.s3.amazonaws.com/{s3_key}"
         print(f"✅ Archivo subido exitosamente a s3://{bucket_name}/{s3_key}")
         print(f"🌐 URL: {url}")
-        print("ℹ️  Nota: Si el bucket no es público, la URL puede no ser accesible")
-        
         return True
         
     except NoCredentialsError:
