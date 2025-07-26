@@ -1,8 +1,9 @@
-# Visualizacion de Datos
+# Análisis de Datos
 
+Group:   Juankers
 Authors: Juan David Arias - Juan Camilo Varela
 
-# Exploración de Datos
+# Exploración de Datos (Exploratory Data Analysis)
 
 ``` sh
 {
