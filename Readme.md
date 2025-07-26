@@ -28,3 +28,21 @@ Authors: Juan David Arias - Juan Camilo Varela
 }
 
 ```
+
+## Create .env file with this content
+
+```sh
+AWS_ACCESS_KEY=
+AWS_SECRET_KEY=
+AWS_REGION=
+S3_BUCKET_NAME=
+DATA_FILE_PATH=sources/Dataset_Talento.csv
+```
+
+## Install dependencies
+
+## Run project 
+
+```sh
+python3 main.py
+```
