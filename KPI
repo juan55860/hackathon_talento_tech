@@ -35,6 +35,40 @@ print(kpi_productividad)
 -----------------------------------------------------------------
 
 2. Productividad por operador.
+-----------------------------------------------------------------
+import pandas as pd
+
+# Cargar datos
+df = pd.read_csv('Dataset_Talento.csv')
+
+# KPI: Productividad por operador
+kpi_productividad_operador = df.groupby('operador_id').agg({
+    'cantidad_producida': 'sum',
+    'unidades_defectuosas': 'sum',
+    'eficiencia_porcentual': 'mean',
+    'operador_id': 'count'
+}).round(2)
+
+# Calcular tasa de defectos
+kpi_productividad_operador['tasa_defectos'] = (
+    kpi_productividad_operador['unidades_defectuosas'] / 
+    kpi_productividad_operador['cantidad_producida'] * 100
+).round(2)
+
+# Renombrar columnas
+kpi_productividad_operador = kpi_productividad_operador.rename(columns={
+    'cantidad_producida': 'total_producido',
+    'unidades_defectuosas': 'total_defectuosas',
+    'eficiencia_porcentual': 'eficiencia_promedio',
+    'operador_id': 'total_registros'
+})
+
+# Ordenar por productividad total (descendente)
+kpi_productividad_operador = kpi_productividad_operador.sort_values('total_producido', ascending=False)
+
+print("Productividad por Operador")
+print("=" * 40)
+print(kpi_productividad_operador)
 3. Fallas de maquina por turno.
 4. Fallas de maquina por producto.
 5. Unidades defectuosas por producto.
@@ -42,5 +76,5 @@ print(kpi_productividad)
 7. Unidades defectuosas por operador
 8. Eficiencia por producto.
 9. Eficiencia por operador.
-
+-----------------------------------------------------------------
 
