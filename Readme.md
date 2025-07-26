@@ -4,9 +4,11 @@ Authors: Juan David Arias - Juan Camilo Varela
 
 
 # Datos
+
+`` sh
 {
-    "timestamp": YYYY-MM-DD hh:mm:ss required,
-    "turno" : "Mañana", "Tarde","Noche" required,
+    "timestamp": "YYYY-MM-DD hh:mm:ss" required,
+    "turno": ENUM: "Mañana", "Tarde","Noche" required,
     "operador_id": "OP_" required
     "maquina_id" : "M_1" to "M_10", required
     "producto_id": "P_", required
@@ -24,3 +26,5 @@ Authors: Juan David Arias - Juan Camilo Varela
     "paradas_imprevistas" : integer,
     "observaciones": text
 }
+
+``
