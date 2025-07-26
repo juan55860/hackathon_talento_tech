@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 from src.read_data import load_data
 from src.clean_data import normalize_data
+from src.linear_regression import linear_regression
 
 fileRoute = 'sources/Dataset_Talento.csv'
 
@@ -40,7 +41,15 @@ if df is not None:
     filas_despues = df.shape[0]
     print(f'\n📊Filas duplicadas eliminadas: {filas_antes - filas_despues}')
 
-    #print('\n📊DataFrame (primeras filas):')
-    #print(df.head())
+    # Regresión lineal
+    print('\n📈 Regresión lineal:')
+    independent_col = 'temperatura'
+    dependent_col = 'eficiencia_porcentual'
+    df_clean = df[[independent_col, dependent_col]].dropna()
+    if len(df_clean) > 0:
+        modelo = linear_regression(df_clean, independent_col, dependent_col)
+    else:
+        print("No hay suficientes datos para realizar la regresión lineal.")
+
 else:
     print('No se pudo cargar el archivo, revisa la ruta o el formato.')
