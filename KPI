@@ -117,6 +117,37 @@ print(kpi_fallas_producto)
 -----------------------------------------------------------------
 5. Unidades defectuosas por producto.
 -----------------------------------------------------------------
+import pandas as pd
+
+# Cargar datos
+df = pd.read_csv('Dataset_Talento.csv')
+
+# KPI: Unidades defectuosas por producto
+kpi_defectuosas_producto = df.groupby('producto_id').agg({
+    'unidades_defectuosas': 'sum',
+    'cantidad_producida': 'sum',
+    'producto_id': 'count'
+}).round(2)
+
+# Calcular tasa de defectos
+kpi_defectuosas_producto['tasa_defectos'] = (
+    kpi_defectuosas_producto['unidades_defectuosas'] / 
+    kpi_defectuosas_producto['cantidad_producida'] * 100
+).round(2)
+
+# Renombrar columnas
+kpi_defectuosas_producto = kpi_defectuosas_producto.rename(columns={
+    'unidades_defectuosas': 'total_defectuosas',
+    'cantidad_producida': 'total_producido',
+    'producto_id': 'total_registros'
+})
+
+# Ordenar por total de defectuosas (descendente)
+kpi_defectuosas_producto = kpi_defectuosas_producto.sort_values('total_defectuosas', ascending=False)
+
+print("Unidades Defectuosas por Producto")
+print("=" * 40)
+print(kpi_defectuosas_producto)
 -----------------------------------------------------------------
 6. Unidades defectuosas por maquina.
 -----------------------------------------------------------------
